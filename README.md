@@ -13,7 +13,7 @@ This repository contains the implementations of the TKDE paper: Tensor Canonical
 
 ## Citation
 
-When using this code, or the ideas of BU-MHS, please cite the following paper
+When using this code, or the ideas of TCCANet, please cite the following paper
 <pre><code>@article{yang2020tensor,
   title={Tensor canonical correlation analysis networks for multi-view remote sensing scene recognition},
   author={Yang, Xinghao and Liu, Weifeng and Liu, Wei},
