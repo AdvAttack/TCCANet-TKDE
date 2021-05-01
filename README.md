@@ -2,7 +2,7 @@
 
 This repository contains the implementations of the TKDE paper: Tensor Canonical Correlation Analysis Networks for Multi-view Remote Sensing Scene Recognition.
 <p align="center">
-<img src="https://github.com/AdvAttack/TCCANet-TKDE/blob/main/image/fig-framework.png" width=60% height=60%>
+<img src="https://github.com/AdvAttack/TCCANet-TKDE/blob/main/image/fig-framework.png" width=100% height=100%>
 </p>
 
 ## Usage
