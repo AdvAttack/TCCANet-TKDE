@@ -1,0 +1,13 @@
+function [U0] = ALS( CoTensor)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+for i=2:3
+    unfoldi=tenmat(CoTensor,i);
+    [U,S,V]=svd(double(unfoldi));
+    U0{i}=U(:,1)
+end
+U1{1}=
+
+
+end
+

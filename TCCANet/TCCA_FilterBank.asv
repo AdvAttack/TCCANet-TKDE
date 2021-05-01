@@ -1,0 +1,71 @@
+function V = TCCA_FilterBank(InImg, PatchSize, NumFilters) 
+% =======INPUT=============
+% InImg            Input images (cell structure)  
+% PatchSize        the patch size, asumed to an odd number.
+% NumFilters       the number of PCA filters in the bank.
+% =======OUTPUT============
+% V                PCA filter banks, arranged in column-by-column manner
+% =========================
+
+% addpath('./Utils')
+
+% to efficiently cope with the large training samples, if the number of training we randomly subsample 10000 the
+% training set to learn PCA filter banks
+ImgZ = length(InImg{1});
+MaxSamples = 100000;
+NumRSamples = min(ImgZ, MaxSamples); 
+RandIdx = randperm(ImgZ);
+RandIdx = RandIdx(1:NumRSamples);
+
+%% Learning PCA filters (V)
+NumChls = size(InImg{1},3);
+%initialize the 3 views variance matrix
+C_11 = zeros(NumChls*PatchSize^2,NumChls*PatchSize^2);
+C_22 = zeros(NumChls*PatchSize^2,NumChls*PatchSize^2);
+C_33 = zeros(NumChls*PatchSize^2,NumChls*PatchSize^2);
+for i=1:PatchSize^2
+    C_123(:,:,i)=zeros(PatchSize^2,PatchSize^2);
+end
+for i = RandIdx %1:ImgZ
+    for j=1:3
+        im{j} = im2col_mean_removal(InImg{j}{i},[PatchSize PatchSize]); % collect all the patches of the ith image in a matrix, and perform patch mean removal
+    end
+    C_11 = C_11 + im{1}*im{1}'; % sum of all the input images' covariance matrix
+    C_22 = C_22 + im{2}*im{2}'; % sum of all the input images' covariance matrix
+    C_33 = C_33 + im{3}*im{3}'; % sum of all the input images' covariance matrix
+    for n=1:size(im{1},2)
+        a=kron(im{1}(:,n),im{2}(:,n));
+        b=reshape(a,49,49);
+        for idx=1:49
+            C_123(:,:,idx)=C_123(:,:,idx)+b*im{3}(idx,n);
+        end        
+    end
+end
+C_123=C_123/(NumRSamples*size(im{1},2));
+C_11 = C_11/(NumRSamples*size(im{1},2));%four kind covariance matrices
+C_22 = C_22/(NumRSamples*size(im{1},2));
+C_33 = C_33/(NumRSamples*size(im{1},2));
+M=
+[U0] = ALS(C_123);
+
+
+
+
+
+M1=inv(C_11)*Rx_12*inv(C_22)*Rx_21;
+M2=inv(C_22)*Rx_21*inv(C_11)*Rx_12;
+%M1=inv(Rx_11)*Rx_12*inv(Rx_22)*Rx_21;
+%M2=inv(Rx_22)*Rx_21*inv(Rx_11)*Rx_12;
+[E1 D1] = eig(M1);
+[E2 D2] = eig(M2);
+[~, ind{1}] = sort(diag(D1),'descend');
+V{1} = E1(:,ind{1}(1:NumFilters));  % principal eigenvectors 
+%V{1}=P*V{1};
+[~, ind{2}] = sort(diag(D2),'descend');
+V{2} = E2(:,ind{2}(1:NumFilters));  % principal eigenvectors 
+V_ori=V;
+save('V.mat','V_ori');
+%V{2}=Q*V{2};
+
+
+
