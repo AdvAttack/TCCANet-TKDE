@@ -7,7 +7,7 @@ This repository contains the implementations of the TKDE paper: Tensor Canonical
 
 ## Usage
 
-* Download RSSCN7 datasets from [Google Drive](https://drive.google.com/file/d/1ZAnZYALuPyS5KpZHTfAeOQx7v0p0cWAg/view?usp=sharing) and place them in `/TCCANet`.
+* Download the propressed multiview feature of RSSCN7 datasets from [Google Drive](https://drive.google.com/file/d/1ZAnZYALuPyS5KpZHTfAeOQx7v0p0cWAg/view?usp=sharing) and place them in `/TCCANet`.
 * To test the TCCANet model, just run ```TCCANet_test.m```.
 
 ## Citation
