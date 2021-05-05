@@ -1,4 +1,4 @@
-# TCCANet-TKDE
+# TCCANet: Tensor Canonical Correlation Analysis Networks for Multi-view Remote Sensing Scene Recognition.
 
 This repository contains the implementations of the TKDE paper: Tensor Canonical Correlation Analysis Networks for Multi-view Remote Sensing Scene Recognition.
 <p align="center">
@@ -21,3 +21,7 @@ When using this code, or the ideas of TCCANet, please cite the following paper
   publisher={IEEE}
 }
 </code></pre>
+
+## Contact
+
+Please contact Xinghao Yang or [Wei Liu](https://wei-research.github.io/) at firstname.lastname@uts.edu.au if you're interested to collaborate on this research!
